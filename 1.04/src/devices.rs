@@ -1,3 +1,4 @@
+use crate::api::{Device, Named, Report};
 use core::result::Result;
 
 pub struct On;
@@ -67,6 +68,13 @@ impl PlugSocket<On> {
     }
 }
 
+impl<State> Device for PlugSocket<State> {}
+impl Named for PlugSocket {
+    fn name(&self) -> &String {
+        &self.description
+    }
+}
+
 pub struct Temperature {
     degrees_kelvin: f64,
 }
@@ -96,13 +104,22 @@ impl Temperature {
 }
 
 pub struct Thermometer {
+    pub name: String,
     pub temperature: Temperature,
 }
 
 impl Thermometer {
-    pub fn new() -> Self {
+    pub fn new(name: String) -> Self {
         Thermometer {
+            name,
             temperature: Temperature::new(293.0).unwrap(),
         }
+    }
+}
+
+impl Device for Thermometer {}
+impl Named for Thermometer {
+    fn name(&self) -> &String {
+        &self.name
     }
 }
