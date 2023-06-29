@@ -1,9 +1,8 @@
+use crate::api::Report;
 use crate::devices::Thermometer;
-
 mod api;
 mod devices;
 mod locations;
-mod tries;
 
 fn main() {
     let socket = devices::PlugSocket::new_grid_socket("Living room socket".to_owned());
@@ -13,6 +12,7 @@ fn main() {
         socket.nomial_voltage,
         socket.get_actual_voltage()
     );
+    println!("{}", socket.report());
     let socket = socket.switch_off();
     let thermometer = devices::Thermometer::new("Thermometer #1".to_owned());
     println!(
@@ -46,4 +46,6 @@ fn main() {
     house.add_room(&room);
     house.add_room(&room2);
     println!("Number of rooms in the house is: {}", house.rooms.len());
+
+    println!("{}", house.report());
 }

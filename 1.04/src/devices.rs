@@ -63,8 +63,8 @@ impl PlugSocket<On> {
         7.3
     }
 
-    pub fn _get_power_consumption() -> Option<f64> {
-        todo!("Find the formula for getting the wattage depending on the phase, voltae and current")
+    pub fn get_power_consumption(&self) -> f64 {
+        300.9
     }
 }
 
@@ -74,7 +74,23 @@ impl Named for PlugSocket {
         &self.description
     }
 }
-
+impl Report for PlugSocket<On> {
+    fn report(&self) -> String {
+        format!(
+            "PlugSocket: \n    name: {}\n    state: On\n    power consumption: {}\n",
+            self.description,
+            self.get_power_consumption()
+        )
+    }
+}
+impl Report for PlugSocket<Off> {
+    fn report(&self) -> String {
+        format!(
+            "PlugSocket: \n    name: {}\n    state: Off\n",
+            self.description
+        )
+    }
+}
 pub struct Temperature {
     degrees_kelvin: f64,
 }
@@ -121,5 +137,14 @@ impl Device for Thermometer {}
 impl Named for Thermometer {
     fn name(&self) -> &String {
         &self.name
+    }
+}
+impl Report for Thermometer {
+    fn report(&self) -> String {
+        format!(
+            "Thermometer:\n    name: {}\n    temperature: {}\n",
+            self.name(),
+            self.temperature.celcius()
+        )
     }
 }
