@@ -1,10 +1,9 @@
 use another_rust_thing::api::Report;
 use another_rust_thing::{devices, locations};
 
-
 fn main() {
     // use crate::hello;
-    
+
     let socket = devices::PlugSocket::new_grid_socket("Living room socket".to_owned());
     let socket = socket.switch_on();
     println!(

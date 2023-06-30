@@ -1,4 +1,4 @@
-use crate::api::{Device, Named, Report};
+use super::api::{Device, Named, Report};
 use core::result::Result;
 
 pub struct On;

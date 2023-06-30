@@ -1,3 +1,2 @@
-pub mod api;
-pub mod devices;
-pub mod locations;
+mod packages;
+pub use packages::{api, devices, locations};
