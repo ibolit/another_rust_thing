@@ -23,9 +23,9 @@ impl<'a> Report for Room<'a> {
 }
 
 impl<'a> Room<'a> {
-    pub fn new(name: String) -> Self {
+    pub fn new(name: &str) -> Self {
         Room {
-            name,
+            name: name.to_owned(),
             devices: vec![],
         }
     }
@@ -62,7 +62,7 @@ mod tests {
 
     #[test]
     fn test_add_device() {
-        let mut room = Room::new("Hello".to_owned());
+        let mut room = Room::new("Hello");
         let mock_device = MockDevice {
             name: "Hello".to_owned(),
         };

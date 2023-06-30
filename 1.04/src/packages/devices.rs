@@ -19,9 +19,9 @@ pub struct PlugSocket<State = Off> {
 }
 
 impl PlugSocket {
-    pub fn new_grid_socket(description: String) -> Self {
+    pub fn new_grid_socket(description: &str) -> Self {
         PlugSocket {
-            description,
+            description: description.to_owned(),
             nomial_voltage: 220.0,
             variant: Current::AC { phase: 120.0 },
             actual_voltage: 0.0,
@@ -125,9 +125,9 @@ pub struct Thermometer {
 }
 
 impl Thermometer {
-    pub fn new(name: String) -> Self {
+    pub fn new(name: &str) -> Self {
         Thermometer {
-            name,
+            name: name.to_owned(),
             temperature: Temperature::new(293.0).unwrap(),
         }
     }

@@ -14,9 +14,9 @@ impl<'a> Named for House<'a> {
 }
 
 impl<'a> House<'a> {
-    pub fn new(name: String) -> Self {
+    pub fn new(name: &str) -> Self {
         House {
-            name,
+            name: name.to_owned(),
             rooms: vec![],
         }
     }
@@ -38,7 +38,7 @@ impl<'a> Report for House<'a> {
 
 #[macro_export]
 macro_rules! house {
-    ($name: expr, $($room: expr),*) => {
+    (name: $name: expr, rooms: $($room: expr),*) => {
         {
             let mut house = House::new($name);
             $(

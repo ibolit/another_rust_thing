@@ -5,14 +5,14 @@ use another_rust_thing::locations::{House, Room};
 
 #[test]
 fn test_house_report() {
-    let mut kitchen = Room::new("Kitchen".to_owned());
-    let mut bedroom = Room::new("Bedroom".to_owned());
-    let mut house = House::new("Baskerville Hall".to_owned());
-    let kettle_socket = PlugSocket::new_grid_socket("kettle socket".to_owned());
-    let oven_thermometer = Thermometer::new("Oven thermometer".to_owned());
+    let mut kitchen = Room::new("Kitchen");
+    let mut bedroom = Room::new("Bedroom");
+    let mut house = House::new("Baskerville Hall");
+    let kettle_socket = PlugSocket::new_grid_socket("kettle socket");
+    let oven_thermometer = Thermometer::new("Oven thermometer");
 
-    let reading_lamp_socket = PlugSocket::new_grid_socket("Reading lamp socket".to_owned());
-    let bedroom_thermometer = Thermometer::new("Bedroom thermometer".to_owned());
+    let reading_lamp_socket = PlugSocket::new_grid_socket("Reading lamp socket");
+    let bedroom_thermometer = Thermometer::new("Bedroom thermometer");
     kitchen.add_device(&kettle_socket);
     kitchen.add_device(&oven_thermometer);
 
@@ -31,10 +31,13 @@ fn test_house_report() {
 
 #[test]
 fn test_house_macro() {
-    let kitchen = Room::new("Kitchen".to_owned());
-    let bedroom = Room::new("Bedroom".to_owned());
+    let kitchen = Room::new("Kitchen");
+    let bedroom = Room::new("Bedroom");
 
-    let house = house!("Macro house".to_owned(), &kitchen, &bedroom);
+    let house = house!(name: "Macro house", rooms: &kitchen, &bedroom);
     assert_eq!(house.rooms.len(), 2);
-    assert_eq!(house.report(), "House Macro house\nRoom Kitchen\n\nRoom Bedroom\n\n\n");
+    assert_eq!(
+        house.report(),
+        "House Macro house\nRoom Kitchen\n\nRoom Bedroom\n\n\n"
+    );
 }
