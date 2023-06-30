@@ -1,10 +1,10 @@
-use crate::api::Report;
-use crate::devices::Thermometer;
-mod api;
-mod devices;
-mod locations;
+use another_rust_thing::api::Report;
+use another_rust_thing::{devices, locations};
+
 
 fn main() {
+    // use crate::hello;
+    
     let socket = devices::PlugSocket::new_grid_socket("Living room socket".to_owned());
     let socket = socket.switch_on();
     println!(
@@ -34,7 +34,7 @@ fn main() {
     room2.add_device(&thermometer);
     room2.add_device(&socket);
     let thermo2 = devices::Thermometer::new("Thermometer #1".to_owned());
-    let thermo3 = Thermometer::new("Thermo 3".to_owned());
+    let thermo3 = devices::Thermometer::new("Thermo 3".to_owned());
     println!("Number of devices in the room is: {}", room2.devices.len());
     room2.add_device(&thermo2);
     println!("Number of devices in the room is: {}", room2.devices.len());
