@@ -14,6 +14,12 @@ impl<'a> Named for House<'a> {
 }
 
 impl<'a> House<'a> {
+    pub fn new(name: String) -> Self {
+        House {
+            name,
+            rooms: vec![],
+        }
+    }
     pub fn add_room(&mut self, room: &'a Room) {
         if !util::name_is_in_named_vector(room.name(), &self.rooms) {
             self.rooms.push(room)

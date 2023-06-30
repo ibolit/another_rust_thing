@@ -1,2 +1,3 @@
 mod packages;
-pub use packages::{api, devices, locations, util};
+pub(self) use packages::util;
+pub use packages::{api, devices, locations};

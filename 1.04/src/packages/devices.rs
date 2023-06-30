@@ -142,7 +142,7 @@ impl Named for Thermometer {
 impl Report for Thermometer {
     fn report(&self) -> String {
         format!(
-            "Thermometer:\n    name: {}\n    temperature: {}\n",
+            "Thermometer:\n    name: {}\n    temperature: {:.3}\n",
             self.name(),
             self.temperature.celcius()
         )

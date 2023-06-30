@@ -1,18 +1,13 @@
 use crate::api::Named;
 
 pub fn name_is_in_named_vector<T: ?Sized + Named>(name: &str, haystack: &[&T]) -> bool {
-    haystack
-        .iter()
-        .map(|x| x.name().clone())
-        .collect::<Vec<String>>()
-        .contains(&name.to_string())
+    haystack.iter().any(|x| x.name() == name)
 }
-
-
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::api::Named;
 
     struct MockNamed {
         name: String,
