@@ -35,3 +35,16 @@ impl<'a> Report for House<'a> {
         ret + "\n"
     }
 }
+
+#[macro_export]
+macro_rules! house {
+    ($name: expr, $($room: expr),*) => {
+        {
+            let mut house = House::new($name);
+            $(
+                house.add_room($room);
+            )*
+            house
+        }
+    };
+}

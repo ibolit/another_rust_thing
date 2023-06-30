@@ -1,5 +1,6 @@
 use another_rust_thing::api::Report;
 use another_rust_thing::devices::{PlugSocket, Thermometer};
+use another_rust_thing::house;
 use another_rust_thing::locations::{House, Room};
 
 #[test]
@@ -26,4 +27,14 @@ fn test_house_report() {
         report,
         "House Baskerville Hall\nRoom Kitchen\nPlugSocket: \n    name: kettle socket\n    state: Off\nThermometer:\n    name: Oven thermometer\n    temperature: 19.850\n\nRoom Bedroom\nPlugSocket: \n    name: Reading lamp socket\n    state: Off\nThermometer:\n    name: Bedroom thermometer\n    temperature: 19.850\n\n\n"
     );
+}
+
+#[test]
+fn test_house_macro() {
+    let kitchen = Room::new("Kitchen".to_owned());
+    let bedroom = Room::new("Bedroom".to_owned());
+
+    let house = house!("Macro house".to_owned(), &kitchen, &bedroom);
+    assert_eq!(house.rooms.len(), 2);
+    assert_eq!(house.report(), "House Macro house\nRoom Kitchen\n\nRoom Bedroom\n\n\n");
 }
