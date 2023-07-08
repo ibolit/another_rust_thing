@@ -7,7 +7,6 @@ pub fn name_is_in_named_vector<T: ?Sized + Named>(name: &str, haystack: &[&T]) -
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::api::Named;
 
     struct MockNamed {
         name: String,

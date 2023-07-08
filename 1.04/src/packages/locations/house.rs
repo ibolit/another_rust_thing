@@ -1,16 +1,12 @@
+use std::io::Repeat;
+
 use super::Room;
-use crate::api::{Named, Report};
+use crate::api::{Device, Named, Report};
 use crate::util;
 
 pub struct House<'a> {
     pub name: String,
     pub rooms: Vec<&'a Room<'a>>,
-}
-
-impl<'a> Named for House<'a> {
-    fn name(&self) -> &String {
-        &self.name
-    }
 }
 
 impl<'a> House<'a> {
@@ -24,6 +20,11 @@ impl<'a> House<'a> {
         if !util::name_is_in_named_vector(room.name(), &self.rooms) {
             self.rooms.push(room)
         }
+    }
+}
+impl<'a> Named for House<'a> {
+    fn name(&self) -> &String {
+        &self.name
     }
 }
 impl<'a> Report for House<'a> {

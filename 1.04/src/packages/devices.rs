@@ -1,5 +1,11 @@
-use super::api::{Device, Named, Report};
 use core::result::Result;
+
+use crate::api::{Device, Named, Report};
+
+pub enum State {
+    On,
+    Off,
+}
 
 pub struct On;
 pub struct Off;
@@ -30,6 +36,24 @@ impl PlugSocket {
         }
     }
 }
+
+// impl PlugSocket {
+//     fn get_state(&self) -> String {
+//         "Unknown State".to_owned()
+//     }
+// }
+
+// impl PlugSocket<Off> {
+//     fn get_state(&self) -> String {
+//         "Off".to_owned()
+//     }
+// }
+
+// impl PlugSocket<On> {
+//     fn get_state(&self) -> String {
+//         "On".to_owned()
+//     }
+// }
 
 impl PlugSocket<Off> {
     pub fn switch_on(self) -> PlugSocket<On> {
@@ -68,26 +92,17 @@ impl PlugSocket<On> {
     }
 }
 
-impl<State> Device for PlugSocket<State> {}
+impl Device for PlugSocket {}
 impl Named for PlugSocket {
     fn name(&self) -> &String {
         &self.description
     }
 }
-impl Report for PlugSocket<On> {
+impl<State> Report for PlugSocket<State> {
     fn report(&self) -> String {
         format!(
-            "PlugSocket: \n    name: {}\n    state: On\n    power consumption: {}\n",
-            self.description,
-            self.get_power_consumption()
-        )
-    }
-}
-impl Report for PlugSocket<Off> {
-    fn report(&self) -> String {
-        format!(
-            "PlugSocket: \n    name: {}\n    state: Off\n",
-            self.description
+            "PlugSocket: \n    name: {}\n    state: {:?}\n    power consumption: {}\n",
+            self.description, self.state, 0.0
         )
     }
 }

@@ -1,10 +1,9 @@
-use super::ReportNamedDevice;
-use crate::api::{Named, Report};
+use crate::api::{Device, Named, Report};
 use crate::util;
 
 pub struct Room<'a> {
     pub name: String,
-    pub devices: Vec<&'a dyn ReportNamedDevice>,
+    pub devices: Vec<&'a dyn Device>,
 }
 
 impl<'a> Named for Room<'a> {
@@ -32,7 +31,7 @@ impl<'a> Room<'a> {
 }
 
 impl<'a> Room<'a> {
-    pub fn add_device(&mut self, device: &'a dyn ReportNamedDevice) {
+    pub fn add_device(&mut self, device: &'a dyn Device) {
         if !util::name_is_in_named_vector(device.name(), &self.devices) {
             self.devices.push(device)
         }
@@ -53,7 +52,7 @@ mod tests {
             "Hello".to_owned()
         }
     }
-    impl super::Named for MockDevice {
+    impl Named for MockDevice {
         fn name(&self) -> &String {
             &self.name
         }
